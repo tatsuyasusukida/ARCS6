@@ -1,0 +1,8 @@
+services:
+  arcs6:
+    build: .
+    container_name: arcs6
+    volumes:
+      - ..:/root/arcs6
+    stdin_open: true
+    tty: true

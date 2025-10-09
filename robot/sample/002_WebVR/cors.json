@@ -1,0 +1,8 @@
+[
+  {
+    "origin": ["https://robot-arm-vr.vercel.app"],
+    "method": ["GET"],
+    "responseHeader": ["Content-Type"],
+    "maxAgeSeconds": 300
+  }
+]
