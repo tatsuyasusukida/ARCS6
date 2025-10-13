@@ -118,9 +118,14 @@ class ControlFunctions {
 
 #else // ARCS_MR
 
-#include "GraphPlot.hh"
+#include "ARCSgraphics.hh"
 #include "InterfaceFunctions.hh"
 #include "ScreenParams.hh"
+
+// 前方宣言
+namespace ARCS{
+	class ARCSgraphics;
+}
 
 namespace ARCS {
 class ControlFunctions {
@@ -144,7 +149,7 @@ public:
 
 private:
   ScreenParams Screen;
-  GraphPlot Graph;
+  ARCSgraphics Graph;
   InterfaceFunctions Interface;
   CtrlFuncMode CmdFlag;
   bool NetworkLink;

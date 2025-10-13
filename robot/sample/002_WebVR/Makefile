@@ -15,7 +15,7 @@ build:
 		-I $(LIBPATH) \
 		-I $(SYSPATH) \
 		-D ARCS_MR \
-		*.cc $(LIBPATH)/WebXR.cc
+		*.cc $(LIBPATH)/WebXR.cc $(SYSPATH)/ARCSgraphics.cc
 
 start:
 	$(eval DIGEST := $(shell shasum -ba 256 out.wasm | cut -d ' ' -f1))

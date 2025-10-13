@@ -2,7 +2,7 @@
 #define INTERFACEFUNCTIONS
 
 #include "ConstParams.hh"
-#include "WebVR.hh"
+#include "WebXR.hh"
 #include <array>
 
 namespace ARCS {
