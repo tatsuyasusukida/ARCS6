@@ -119,8 +119,8 @@ class ControlFunctions {
 #else // ARCS_MR
 
 #include "ARCSgraphics.hh"
+#include "ARCSscrparams.hh"
 #include "InterfaceFunctions.hh"
-#include "ScreenParams.hh"
 
 // 前方宣言
 namespace ARCS{
@@ -148,7 +148,7 @@ public:
   void UpdateScreen();
 
 private:
-  ScreenParams Screen;
+  ARCSscrparams Screen;
   ARCSgraphics Graph;
   InterfaceFunctions Interface;
   CtrlFuncMode CmdFlag;
