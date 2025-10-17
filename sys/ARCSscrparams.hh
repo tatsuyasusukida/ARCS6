@@ -162,6 +162,7 @@ namespace ARCS {	// ARCS名前空間
 #else // ARCS_MR
 
 #include "ConstParams.hh"
+#include "ArcsMatrix.hh"
 #include <array>
 
 namespace ARCS {
@@ -170,8 +171,9 @@ public:
   void SetNetworkLink(const bool LinkFlag);
   void SetInitializing(const bool InitFlag);
   void SetCurrentAndPosition(
-      const std::array<double, ConstParams::ACTUATOR_NUM> &Current,
-      const std::array<double, ConstParams::ACTUATOR_NUM> &Position);
+		const ArcsMat<ConstParams::ACTUATOR_NUM, 1>& Current,
+		const ArcsMat<ConstParams::ACTUATOR_NUM, 1>& Position
+	);
   void
   SetVarIndicator(const std::array<double, ConstParams::INDICVARS_MAX> &Vars);
 

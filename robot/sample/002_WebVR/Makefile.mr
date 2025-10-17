@@ -1,12 +1,11 @@
 LIBPATH = ../../../lib
 SYSPATH = ../../../sys
-
-all: build
+WEBXRPATH = ../../../webxr
 
 run:
 	docker run -it --rm -v $(PWD):/workspace alma-emcc:latest
 
-build:
+mr:
 	emcc -O2 \
 		-s EXPORTED_FUNCTIONS=_invokeFunctionsCallback,_updateModeCallback \
 		-s ERROR_ON_UNDEFINED_SYMBOLS=0 \
@@ -14,8 +13,9 @@ build:
 		-I. \
 		-I $(LIBPATH) \
 		-I $(SYSPATH) \
+		-I $(WEBXRPATH) \
 		-D ARCS_MR \
-		*.cc $(LIBPATH)/WebXR.cc \
+		*.cc $(WEBXRPATH)/WebXR.cc \
 		$(SYSPATH)/ARCSgraphics.cc \
 		$(SYSPATH)/ARCSscrparams.cc \
 		2>&1 \
@@ -36,5 +36,5 @@ start:
 	$(eval URL := https://storage.googleapis.com/scrap-gcc-emcc/$(DIGEST).bin)
 	$(eval ARTIFACT := $(shell printf "%s" "$(URL)" | base64 | tr '+/' '-_' | tr -d '='))
 
-	gcloud storage cp out.wasm $(DEST)
+	gsutil cp out.wasm $(DEST)
 	open "https://robot-arm-vr.vercel.app/?artifact=$(ARTIFACT)"

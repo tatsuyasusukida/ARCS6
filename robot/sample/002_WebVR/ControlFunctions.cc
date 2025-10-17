@@ -1,4 +1,5 @@
 #include "ControlFunctions.hh"
+#include "ARCSscrparams.hh"
 #include "ArcsMatrix.hh"
 #include <math.h>
 
@@ -8,8 +9,8 @@ using namespace ArcsMatrix;
 namespace {
 int currentStep = 1;
 
-std::array<double, ConstParams::ACTUATOR_NUM> PositionRes = {0, 0, 0, 0, 0};
-std::array<double, ConstParams::ACTUATOR_NUM> CurrentRef = {0, 0, 0, 0, 0};
+ArcsMat<ConstParams::ACTUATOR_NUM, 1> PositionRes;
+ArcsMat<ConstParams::ACTUATOR_NUM, 1> CurrentRef;
 } // namespace
 
 bool ControlFunctions::ControlFunction1(double t, double Tact, double Tcmp) {
@@ -23,12 +24,16 @@ bool ControlFunctions::ControlFunction1(double t, double Tact, double Tcmp) {
     Screen.InitOnlineSetVar();
     Interface.ServoON();
     Initializing = false;
+
+    for (unsigned int i = 0; i < ConstParams::ACTUATOR_NUM; i += 1) {
+      PositionRes(i, 1) = 0;
+    }
   }
 
   if (CmdFlag == CTRL_LOOP) {
     Interface.GetPosition(PositionRes);
 
-    double OnlineSetVar;
+    double OnlineSetVar = 0.0;
     Screen.GetOnlineSetVar(OnlineSetVar);
     Screen.SetVarIndicator(OnlineSetVar);
 
@@ -139,10 +144,4 @@ void ControlFunctions::UpdateControlValue() {
   Screen.SetNetworkLink(NetworkLink);
   Screen.SetInitializing(Initializing);
   Screen.SetCurrentAndPosition(CurrentRef, PositionRes);
-}
-
-void ControlFunctions::UpdateScreen() { Screen.UpdateOnlineSetVar(); }
-
-void ControlFunctions::UpdateMode(CtrlFuncMode NewCmdFlag) {
-  CmdFlag = NewCmdFlag;
 }

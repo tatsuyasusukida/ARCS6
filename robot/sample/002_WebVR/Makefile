@@ -6,3 +6,6 @@ SYSPATH = ../../../sys
 
 # メインMakefileの読み込み
 include $(SYSPATH)/Makefile
+
+include Makefile.mr
+

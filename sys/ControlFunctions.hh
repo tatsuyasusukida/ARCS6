@@ -120,7 +120,7 @@ class ControlFunctions {
 
 #include "ARCSgraphics.hh"
 #include "ARCSscrparams.hh"
-#include "InterfaceFunctions.hh"
+#include "WebXRInterfaceFunctions.hh"
 
 // 前方宣言
 namespace ARCS{
@@ -144,8 +144,13 @@ public:
   bool ControlFunction2(double t, double Tact, double Tcmp);
   bool ControlFunction3(double t, double Tact, double Tcmp);
   void UpdateControlValue();
-  void UpdateMode(CtrlFuncMode NewCmdFlag);
-  void UpdateScreen();
+  void UpdateMode(CtrlFuncMode NewCmdFlag) {
+		  CmdFlag = NewCmdFlag;
+	}
+
+  void UpdateScreen() {
+		Screen.UpdateOnlineSetVar();
+	}
 
 private:
   ARCSscrparams Screen;

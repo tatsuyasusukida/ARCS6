@@ -437,6 +437,8 @@ class ConstParams {
 		static constexpr double PLOTXZ_VAL_XPOS = -0.4;	//!< 数値表示の左位置
 		static constexpr double PLOTXZ_VAL_ZPOS =  1.9;	//!< 数値表示の上位置
 		
+		static constexpr unsigned int ACTUATOR_NUM = 1;
+
 	private:
 		ConstParams() = delete;	//!< コンストラクタ使用禁止
 		~ConstParams() = delete;//!< デストラクタ使用禁止

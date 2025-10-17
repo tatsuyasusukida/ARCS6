@@ -236,13 +236,14 @@ void ARCSscrparams::SetNetworkLink(const bool LinkFlag) {}
 void ARCSscrparams::SetInitializing(const bool InitFlag) {}
 
 void ARCSscrparams::SetCurrentAndPosition(
-    const std::array<double, ConstParams::ACTUATOR_NUM> &Current,
-    const std::array<double, ConstParams::ACTUATOR_NUM> &Position) {
+		const ArcsMat<ConstParams::ACTUATOR_NUM, 1>& Current,
+		const ArcsMat<ConstParams::ACTUATOR_NUM, 1>& Position
+	) {
   for (int i = 0; i < ConstParams::ACTUATOR_NUM; ++i) {
     int axis = i + 1;
     int status = ACTUATOR_STATUS_NORMAL;
 
-    setActuatorStatus(axis, status, Current[i], Position[i]);
+    setActuatorStatus(axis, status, Current(i, 1), Position(i, 1));
   }
 }
 
