@@ -16,9 +16,6 @@ ArcsMat<ConstParams::ACTUATOR_NUM, 1> CurrentRef;
 bool ControlFunctions::ControlFunction1(double t, double Tact, double Tcmp) {
   [[maybe_unused]] const double Ts = ConstParams::SAMPLING_TIME[0] * 1e-9;
 
-  ARCS::ArcsMat<4, 4> A(2.222);
-  Screen.SetOnlineSetVar(0, A(1, 1));
-
   if (CmdFlag == CTRL_INIT) {
     Initializing = true;
     Screen.InitOnlineSetVar();
@@ -50,7 +47,7 @@ bool ControlFunctions::ControlFunction1(double t, double Tact, double Tcmp) {
       CurrentRef = {-3, 0, 0, 0, 0};
       Interface.SetCurrent(CurrentRef);
 
-      double currentRadian = PositionRes[axisNumber - 1];
+      double currentRadian = PositionRes(axisNumber, 1);
 
       if (currentRadian < commandRadian / 1.5) {
         currentStep += 1;
@@ -62,7 +59,7 @@ bool ControlFunctions::ControlFunction1(double t, double Tact, double Tcmp) {
       CurrentRef = {0, -3, 0, 0, 0};
       Interface.SetCurrent(CurrentRef);
 
-      double currentRadian = PositionRes[axisNumber - 1];
+      double currentRadian = PositionRes(axisNumber, 1);
 
       if (currentRadian < commandRadian / 1.5) {
         currentStep += 1;
@@ -74,7 +71,7 @@ bool ControlFunctions::ControlFunction1(double t, double Tact, double Tcmp) {
       CurrentRef = {0, 0, -3, 0, 0};
       Interface.SetCurrent(CurrentRef);
 
-      double currentRadian = PositionRes[axisNumber - 1];
+      double currentRadian = PositionRes(axisNumber, 1);
 
       if (currentRadian < commandRadian / 1.5) {
         currentStep += 1;
@@ -86,7 +83,7 @@ bool ControlFunctions::ControlFunction1(double t, double Tact, double Tcmp) {
       CurrentRef = {3, 0, 0, 0, 0};
       Interface.SetCurrent(CurrentRef);
 
-      double currentRadian = PositionRes[axisNumber - 1];
+      double currentRadian = PositionRes(axisNumber, 1);
 
       if (currentRadian > commandRadian / 1.5) {
         currentStep += 1;
@@ -98,7 +95,7 @@ bool ControlFunctions::ControlFunction1(double t, double Tact, double Tcmp) {
       CurrentRef = {-3, 0, 0, 0, 0};
       Interface.SetCurrent(CurrentRef);
 
-      double currentRadian = PositionRes[axisNumber - 1];
+      double currentRadian = PositionRes(axisNumber, 1);
 
       if (currentRadian < commandRadian / 1.5) {
         currentStep -= 1;

@@ -239,11 +239,10 @@ void ARCSscrparams::SetCurrentAndPosition(
 		const ArcsMat<ConstParams::ACTUATOR_NUM, 1>& Current,
 		const ArcsMat<ConstParams::ACTUATOR_NUM, 1>& Position
 	) {
-  for (int i = 0; i < ConstParams::ACTUATOR_NUM; ++i) {
-    int axis = i + 1;
+  for (int i = 1; i <= ConstParams::ACTUATOR_NUM; ++i) {
     int status = ACTUATOR_STATUS_NORMAL;
 
-    setActuatorStatus(axis, status, Current(i, 1), Position(i, 1));
+    setActuatorStatus(i, status, Current(i, 1), Position(i, 1));
   }
 }
 
