@@ -31,10 +31,9 @@ mr:
 		|| true
 
 start:
-	$(eval DIGEST := $(shell shasum -ba 256 out.wasm | cut -d ' ' -f1))
-	$(eval DEST := gs://scrap-gcc-emcc/$(DIGEST).bin)
-	$(eval URL := https://storage.googleapis.com/scrap-gcc-emcc/$(DIGEST).bin)
-	$(eval ARTIFACT := $(shell printf "%s" "$(URL)" | base64 | tr '+/' '-_' | tr -d '='))
-
-	gsutil cp out.wasm $(DEST)
-	open "https://robot-arm-vr.vercel.app/?artifact=$(ARTIFACT)"
+	$(eval BASE_URL := https://robot-arm-api-581611052166.asia-northeast1.run.app)
+	$(eval UPLOAD_URL := $(shell curl $(BASE_URL)/api/v1/get-upload-url | jq -r .uploadUrl))
+	curl -X PUT -H "Content-Type: application/octet-stream" --data-binary @out.wasm "$(UPLOAD_URL)"
+	$(eval DOWNLOAD_URL := $(shell curl "$(BASE_URL)/api/v1/get-download-url?uploadUrl=$(UPLOAD_URL)" | jq -r .downloadUrl))
+	$(eval ARTIFACT := $(shell printf "%s" "$(DOWNLOAD_URL)" | base64 | tr '+/' '-_' | tr -d '='))
+	echo "Access to https://robot-arm-vr.vercel.app/?artifact=$(ARTIFACT)"
